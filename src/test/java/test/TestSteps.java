@@ -2,6 +2,8 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -50,26 +52,30 @@ public class TestSteps {
     	wait = new WebDriverWait(driver, 10);    	
     	wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//*")));
     	
-    	WebElement campoNome = driver.findElement(By.xpath(inputNome));
-    	campoNome.sendKeys(arg1);
-    	
+    	WebElement campoTexto = driver.findElement(By.xpath(inputTexto));
+    	campoTexto.sendKeys(arg2);
+
     	WebElement campoData = driver.findElement(By.xpath(inputData));
     	campoData.sendKeys(arg3);
     	
-    	WebElement campoTexto = driver.findElement(By.xpath(inputTexto));
-    	campoTexto.sendKeys(arg2);
+    	WebElement campoNome = driver.findElement(By.xpath(inputNome));
+    	campoNome.sendKeys(arg1);
     }
 
     @Quando("^clicar no botão$")
     public void clicar_no_botão() throws InterruptedException {
-    	wait = new WebDriverWait(driver, 10);
-    	wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text() = 'Submit']")));
-    	WebElement elemento = driver.findElement(By.xpath("//button[text() = 'Submit']"));
-    	elemento.click();
-    	elemento = driver.findElement(By.xpath("//button[@type = 'submit']"));
-    	elemento.click();
-    	elemento.sendKeys(Keys.ENTER);
+    	
+    	//aparentemente o selenium esta com problemas com o metodo click (verifiquei na internet)
+    	//WebElement elemento = driver.findElement(By.xpath("//button[text() = 'Submit']"));
+    	//elemento.click();
 
+    }
+    
+    @Quando("^submeter o formulario$")
+    public void submeter_o_formulario() throws InterruptedException {
+    	
+    	WebElement elemento = driver.findElement(By.xpath("//form[1]"));
+    	elemento.submit();
     }
 
     @Entao("^eu devo ver o texto \"([^\"]*)\"$")

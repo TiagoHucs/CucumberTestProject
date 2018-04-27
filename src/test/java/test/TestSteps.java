@@ -25,6 +25,7 @@ public class TestSteps {
     static String feedBackNome = "//label[text() = 'Qual é seu nome? ']/following-sibling::div[2]";
     static String feedBackData = "//label[text() = 'Qual é a data do seu nascimento? ']/following-sibling::div[2]";
     static String feedBackTexto = "//label[text() = 'Porque você ingressou na área de testes? ']/following-sibling::div[2]";
+    static String formulario = "//div[@id='form-wrapper']//following-sibling::form";
     
     String retorno = "";
     String label = "party rock";
@@ -60,12 +61,16 @@ public class TestSteps {
     	
     	WebElement campoNome = driver.findElement(By.xpath(inputNome));
     	campoNome.sendKeys(arg1);
+    	
+    	campoTexto.sendKeys();
+    	campoData.sendKeys();
+    	campoNome.sendKeys();
     }
 
     @Quando("^clicar no botão$")
     public void clicar_no_botão() throws InterruptedException {
     	
-    	//aparentemente o selenium esta com problemas com o metodo click (verifiquei na internet)
+    	//aparentemente o selenium esta com problemas com o metodo click
     	//WebElement elemento = driver.findElement(By.xpath("//button[text() = 'Submit']"));
     	//elemento.click();
 
@@ -74,7 +79,8 @@ public class TestSteps {
     @Quando("^submeter o formulario$")
     public void submeter_o_formulario() throws InterruptedException {
     	
-    	WebElement elemento = driver.findElement(By.xpath("//form[1]"));
+    	WebElement elemento = driver.findElement(By.xpath("//html"));
+    	elemento = driver.findElement(By.xpath(formulario));
     	elemento.submit();
     }
 
@@ -94,6 +100,7 @@ public class TestSteps {
     
     @Entao("^eu devo ver a mensagem de erro no campo nome \"([^\"]*)\"$")
     public void eu_devo_ver_a_mensagem_de_erro_no_campo_nome(String arg1){
+    	//retorno = driver.findElement(By.xpath(feedBackNome)).getText();
     	wait = new WebDriverWait(driver, 10);
     	String resposta = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(feedBackNome))).getText();
         assertEquals(arg1, resposta );

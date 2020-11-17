@@ -7,7 +7,7 @@ import cucumber.api.junit.Cucumber;
 @RunWith(Cucumber.class)
 @CucumberOptions(
 format = {"pretty", "html:target/cucumber"},
-features = "src/test/resources",
+features = "src/test/resources/google",
 tags = {"~@avoid"}
 )
 public class TestRunner {
